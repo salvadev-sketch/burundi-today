@@ -102,7 +102,7 @@ export default function AdminDashboardPage() {
             {profile?.name ? `, ${profile.name.split(" ")[0]}` : ""}
           </h1>
           <p className="mt-1 text-sm text-gray-500">
-            Here&apos;s how Amakuru is performing —{" "}
+            Here&apos;s how Burundi Today is performing —{" "}
             {now.toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
           </p>
         </div>
@@ -239,7 +239,7 @@ export default function AdminDashboardPage() {
             <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-gray-500">
               <MessagesSquare size={13} /> Delivery preview
             </div>
-            <div className="text-sm font-bold text-adminNavy">Amakuru</div>
+            <div className="text-sm font-bold text-adminNavy">Burundi Today</div>
             <p className="mt-1 text-[13px] text-gray-500">
               {message.trim() ? message : "Short summary shown in the push notification…"}
             </p>

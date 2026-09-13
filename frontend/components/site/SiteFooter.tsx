@@ -23,7 +23,7 @@ export default function SiteFooter() {
     <footer className="bg-papyrus px-4 pb-6 pt-9 sm:px-6">
       <div className="mb-7 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <div className="mb-2.5 font-display text-2xl italic text-ink">Amakuru</div>
+          <div className="mb-2.5 font-display text-2xl italic text-ink">Burundi Today</div>
           <p className="max-w-[32ch] text-[13px] leading-relaxed text-muted">{t("footerTagline")}</p>
         </div>
         <div>

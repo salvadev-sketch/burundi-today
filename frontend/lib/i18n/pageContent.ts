@@ -42,7 +42,7 @@ export const aboutContent: Record<SupportedLanguage, AboutContent> = {
     label: "About",
     headingPrefix: "About",
     introFallback:
-      "Amakuru is an independent newsroom covering the Great Lakes region, reported in English, French, and Kirundi.",
+      "Burundi Today is an independent newsroom covering the Great Lakes region, reported in English, French, and Kirundi.",
     body1:
       "We cover politics, business, culture, and sport with a focus on stories that matter to readers across the region — not just the headlines that travel best internationally. Our newsroom is small, deliberately so: every story that runs has been read, checked, and signed off by a real editor before it's published.",
     body2:
@@ -56,7 +56,7 @@ export const aboutContent: Record<SupportedLanguage, AboutContent> = {
     label: "À propos",
     headingPrefix: "À propos de",
     introFallback:
-      "Amakuru est une rédaction indépendante couvrant la région des Grands Lacs, avec des reportages en anglais, en français et en kirundi.",
+      "Burundi Today est une rédaction indépendante couvrant la région des Grands Lacs, avec des reportages en anglais, en français et en kirundi.",
     body1:
       "Nous couvrons la politique, l'économie, la culture et le sport en nous concentrant sur les sujets qui comptent pour les lecteurs de la région — pas seulement les titres qui voyagent le mieux à l'international. Notre rédaction est petite, volontairement : chaque article publié a été lu, vérifié et validé par un vrai rédacteur avant sa mise en ligne.",
     body2:
@@ -70,7 +70,7 @@ export const aboutContent: Record<SupportedLanguage, AboutContent> = {
     label: "Ibitwerekeye",
     headingPrefix: "Ibijanye na",
     introFallback:
-      "Amakuru ni ikinyamakuru kidasanzwe gishinzwe kuronsa amakuru y'akarere k'ibiyaga bigari, mu ndimi Icongereza, Igifaransa, n'Ikirundi.",
+      "Burundi Today ni ikinyamakuru kidasanzwe gishinzwe kuronsa amakuru y'akarere k'ibiyaga bigari, mu ndimi Icongereza, Igifaransa, n'Ikirundi.",
     body1:
       "Turavuga ivyerekeye politike, ubukungu, umuco, n'imikino, dushira imbere inkuru zifise akamaro ku basomyi bo mu karere — atari gusa inkuru zizwi ku rwego mpuzamakungu. Ikinyamakuru cacu ni gito, ku bushake: buri nkuru isohorwa isanzwe yasomwe, igasuzumwa, kandi igashigikirwa n'umunyamakuru w'ukuri imbere yo gusohoka.",
     body2:

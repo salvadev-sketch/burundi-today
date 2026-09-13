@@ -54,7 +54,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Amakuru</title>
+    <title>Burundi Today</title>
     <link>${SITE_URL}</link>
     <description>Independent news for the Great Lakes region, reported in English, French, and Kirundi.</description>
     <language>en</language>

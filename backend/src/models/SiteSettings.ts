@@ -25,7 +25,7 @@ export interface ISiteSettings extends Document {
 
 const SiteSettingsSchema = new Schema<ISiteSettings>(
   {
-    siteName: { type: String, default: "Amakuru" },
+    siteName: { type: String, default: "Burundi Today" },
     tagline: { type: String },
     logoUrl: { type: String },
     contactEmail: { type: String },

@@ -51,6 +51,6 @@ export async function onForegroundPush(callback: (title: string, body: string) =
   if (typeof window === "undefined" || !(await isSupported())) return () => {};
   const messaging = getMessaging(firebaseApp);
   return onMessage(messaging, (payload) => {
-    callback(payload.notification?.title ?? "Amakuru", payload.notification?.body ?? "");
+    callback(payload.notification?.title ?? "Burundi Today", payload.notification?.body ?? "");
   });
 }

@@ -109,7 +109,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     footerCareers: "Careers",
     footerContact: "Contact",
     footerRss: "RSS feed",
-    footerCopyright: "Amakuru.",
+    footerCopyright: "Burundi Today.",
 
     adminDashboard: "Admin dashboard",
     adminArticles: "Articles",
@@ -174,7 +174,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     footerCareers: "Carrières",
     footerContact: "Contact",
     footerRss: "Flux RSS",
-    footerCopyright: "Amakuru.",
+    footerCopyright: "Burundi Today.",
 
     adminDashboard: "Tableau de bord admin",
     adminArticles: "Articles",
@@ -230,7 +230,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     newsletterFootnote: "EN · FR · KI — hindura igihe cose mu ngenga za konti yawe",
     emailPlaceholder: "wewe@akarorero.com",
 
-    footerTagline: "Amakuru adafitanye isano n'ubuyobozi ku karere k'ibiyaga bigari, atangazwa mu Congereza, Igifaransa, n'Ikirundi.",
+    footerTagline: "Burundi Today adafitanye isano n'ubuyobozi ku karere k'ibiyaga bigari, atangazwa mu Congereza, Igifaransa, n'Ikirundi.",
     footerSections: "Ibice",
     footerCompany: "Ikigo",
     footerAccount: "Konti",
@@ -239,7 +239,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     footerCareers: "Akazi",
     footerContact: "Twandikire",
     footerRss: "Igikorwa RSS",
-    footerCopyright: "Amakuru.",
+    footerCopyright: "Burundi Today.",
 
     adminDashboard: "Ikibaho c'abakuru",
     adminArticles: "Inyandiko",

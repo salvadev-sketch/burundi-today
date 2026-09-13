@@ -48,7 +48,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-56 shrink-0 bg-adminNavy p-4">
         <div className="mb-6 px-2">
           <div className="font-display text-lg font-semibold text-white">
-            Amakuru <span className="text-adminOrange">•</span>
+            Burundi Today <span className="text-adminOrange">•</span>
           </div>
           <div className="text-xs text-white/50">{t("adminDashboard")}</div>
         </div>

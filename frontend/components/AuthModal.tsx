@@ -58,7 +58,7 @@ export default function AuthModal({ open, onClose, onAuthenticated }: AuthModalP
         </h2>
         <p className="mb-5 mt-1.5 text-[13px] text-muted">
           {isSignUp
-            ? "Join Amakuru to comment, bookmark stories, and get notifications in your language."
+            ? "Join Burundi Today to comment, bookmark stories, and get notifications in your language."
             : "Sign in to comment, bookmark, and get notifications in your language."}
         </p>
 

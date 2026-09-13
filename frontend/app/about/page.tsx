@@ -17,7 +17,7 @@ export default function AboutPage() {
         <div className="mb-7 border-b-[3px] border-ink pb-4">
           <span className="font-mono text-xs uppercase tracking-wide text-muted">{c.label}</span>
           <h1 className="font-display text-[34px] font-semibold text-ink">
-            {c.headingPrefix} {settings?.siteName || "Amakuru"}
+            {c.headingPrefix} {settings?.siteName || "Burundi Today"}
           </h1>
         </div>
 

@@ -25,7 +25,7 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   const { title, body, icon } = payload.notification ?? {};
-  self.registration.showNotification(title ?? "Amakuru", {
+  self.registration.showNotification(title ?? "Burundi Today", {
     body: body ?? "",
     icon: icon ?? "/icon-192.png",
     data: payload.data ?? {},

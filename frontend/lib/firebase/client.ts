@@ -1,10 +1,10 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getAuth, type Auth } from "firebase/auth";
 import { getMessaging, isSupported, type Messaging } from "firebase/messaging";
 
-// Auth was removed from this file — the app now uses a custom JWT +
-// bcrypt auth system (see lib/hooks/useAuthUser.tsx), not Firebase
-// Authentication. Firebase is still used here for Cloud Messaging (push
-// notifications) only.
+// Firebase project: burundi-29563. Used for both Authentication and Cloud
+// Messaging (push notifications) — this app previously ran a custom JWT +
+// bcrypt auth system instead of Firebase Auth, but has since switched back.
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -18,6 +18,8 @@ const firebaseConfig = {
 export const firebaseApp: FirebaseApp = getApps().length
   ? getApp()
   : initializeApp(firebaseConfig);
+
+export const firebaseAuth: Auth = getAuth(firebaseApp);
 
 /**
  * Messaging can only run in the browser (it needs the Service Worker /

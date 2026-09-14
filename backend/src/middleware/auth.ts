@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { verifyAccessToken } from "../config/jwt";
+import { firebaseAuth } from "../config/firebase";
 import { User, type UserRole, type IUser } from "../models/User";
 
 export interface AuthedRequest extends Request {
@@ -7,10 +7,16 @@ export interface AuthedRequest extends Request {
 }
 
 /**
- * Reads the app-issued JWT access token from the Authorization header
- * ("Bearer <token>"), verifies it, and loads the matching Mongo user onto
- * req.user. Replaces the old Firebase ID token check — RBAC below this
- * point (requireRole, role checks) is unchanged.
+ * Reads the Firebase ID token from the Authorization header
+ * ("Bearer <token>"), verifies it against Firebase, and loads the matching
+ * Mongo user (by firebaseUid) onto req.user. Replaces the old app-issued
+ * JWT check — RBAC below this point (requireRole, role checks) is
+ * unchanged.
+ *
+ * A verified Firebase token with no matching Mongo user yet is NOT an
+ * error here — POST /api/auth/sync (called right after sign-in/sign-up on
+ * the frontend) is what creates that record. Routes that need an existing
+ * profile should check req.user themselves and 404 if it's missing.
  */
 export async function authenticate(req: AuthedRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
@@ -21,11 +27,11 @@ export async function authenticate(req: AuthedRequest, res: Response, next: Next
   }
 
   try {
-    const decoded = verifyAccessToken(token);
-    const user = await User.findById(decoded.sub);
+    const decoded = await firebaseAuth.verifyIdToken(token);
+    const user = await User.findOne({ firebaseUid: decoded.uid });
 
     if (!user) {
-      return res.status(404).json({ error: "User profile not found" });
+      return res.status(404).json({ error: "User profile not found. Call /api/auth/sync first." });
     }
     if (user.status === "deactivated") {
       return res.status(403).json({ error: "Account deactivated" });
@@ -51,8 +57,8 @@ export async function optionalAuthenticate(req: AuthedRequest, _res: Response, n
   if (!token) return next();
 
   try {
-    const decoded = verifyAccessToken(token);
-    const user = await User.findById(decoded.sub);
+    const decoded = await firebaseAuth.verifyIdToken(token);
+    const user = await User.findOne({ firebaseUid: decoded.uid });
     if (user && user.status !== "deactivated") {
       req.user = user;
     }

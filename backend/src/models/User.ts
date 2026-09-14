@@ -4,7 +4,8 @@ export type UserRole = "Admin" | "Editor" | "Author" | "Moderator" | "Subscriber
 export type SupportedLanguage = "en" | "fr" | "rn";
 
 export interface IUser extends Document {
-  passwordHash: string; // bcrypt hash, used by the custom JWT auth system
+  firebaseUid: string; // Firebase Auth UID — primary identity link, post-migration
+  passwordHash?: string; // legacy: bcrypt hash from the old JWT auth system, kept only for the migration script's reference. No longer used to verify logins.
   email: string;
   name: string;
   avatarUrl?: string;
@@ -27,7 +28,8 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>(
   {
-    passwordHash: { type: String, required: true, select: false },
+    firebaseUid: { type: String, unique: true, sparse: true, index: true },
+    passwordHash: { type: String, select: false },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     name: { type: String, required: true, trim: true },
     avatarUrl: { type: String },

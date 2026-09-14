@@ -5,6 +5,7 @@ import { Article } from "../models/Article";
 import { Category } from "../models/Category";
 import { requireRole, optionalAuthenticate, type AuthedRequest } from "../middleware/auth";
 import { recordAuditLog } from "../services/auditLog";
+import { notifySubscribersOfPublish } from "../services/notify-subscribers";
 
 const router = Router();
 
@@ -99,6 +100,17 @@ router.post("/", requireRole("Admin", "Editor", "Author"), async (req: AuthedReq
       targetId: String(article._id),
       meta: { slug: article.slug, status },
     });
+
+    if (status === "published") {
+      const category = await Category.findById(article.category).select("name");
+      void notifySubscribersOfPublish({
+        title: article.title,
+        dek: article.dek,
+        slug: article.slug,
+        categoryName: category?.name,
+      });
+    }
+
     res.status(201).json({ article });
   } catch (err: any) {
     if (err.code === 11000) {
@@ -236,6 +248,15 @@ router.patch("/:id", requireRole("Admin", "Editor", "Author"), async (req: Authe
     targetId: req.params.id,
     meta: { slug: updated?.slug, status: updated?.status },
   });
+
+  if (!wasPublished && updated?.status === "published") {
+    void notifySubscribersOfPublish({
+      title: updated.title,
+      dek: updated.dek,
+      slug: updated.slug,
+      categoryName: (updated.category as any)?.name,
+    });
+  }
 
   res.json({ article: updated });
 });

@@ -29,13 +29,21 @@ function initials(name?: string | null) {
 }
 
 export default function SiteHeader() {
-  const { profile, loading } = useAuthUser();
+  const { profile, loading, logout } = useAuthUser();
   const { t } = useLanguage();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+
+  async function handleLogout() {
+    setAccountMenuOpen(false);
+    setMenuOpen(false);
+    await logout();
+    router.push("/");
+  }
   const today = new Date().toLocaleDateString("en-GB", {
     weekday: "long",
     year: "numeric",
@@ -132,16 +140,41 @@ export default function SiteHeader() {
           </div>
 
           {isSignedIn ? (
-            <Link
-              href="/bookmarks"
-              onClick={() => setMenuOpen(false)}
-              className="mt-2 flex items-center gap-2 rounded-full bg-papyrus py-1.5 pl-1.5 pr-3 text-[13px] font-semibold text-ink sm:mt-0"
-            >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal font-display text-[11px] font-semibold text-white">
-                {initials(profile?.name)}
-              </span>
-              {profile?.name || t("account")}
-            </Link>
+            <div className="relative mt-2 sm:mt-0">
+              <button
+                type="button"
+                onClick={() => setAccountMenuOpen((v) => !v)}
+                aria-expanded={accountMenuOpen}
+                className="flex w-full items-center gap-2 rounded-full bg-papyrus py-1.5 pl-1.5 pr-3 text-[13px] font-semibold text-ink sm:w-auto"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal font-display text-[11px] font-semibold text-white">
+                  {initials(profile?.name)}
+                </span>
+                {profile?.name || t("account")}
+              </button>
+
+              {accountMenuOpen && (
+                <div className="static mt-1 flex flex-col overflow-hidden rounded border border-line bg-white text-[13px] shadow-sm sm:absolute sm:right-0 sm:top-full sm:z-30 sm:mt-1.5 sm:w-40">
+                  <Link
+                    href="/bookmarks"
+                    onClick={() => {
+                      setAccountMenuOpen(false);
+                      setMenuOpen(false);
+                    }}
+                    className="border-b border-line px-3.5 py-2.5 font-semibold text-charcoal hover:bg-papyrus"
+                  >
+                    {t("bookmarks")}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="px-3.5 py-2.5 text-left font-semibold text-charcoal hover:bg-papyrus"
+                  >
+                    {t("logout")}
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <button
               onClick={() => {

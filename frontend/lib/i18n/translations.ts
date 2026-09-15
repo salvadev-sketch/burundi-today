@@ -10,6 +10,7 @@ export type LangKey =
   | "signIn"
   | "account"
   | "bookmarks"
+  | "logout"
   | "menu"
   | "closeMenu"
   | "tagline"
@@ -76,6 +77,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     signIn: "Sign in",
     account: "Account",
     bookmarks: "Bookmarks",
+    logout: "Log out",
     menu: "☰ Menu",
     closeMenu: "✕ Close",
     tagline: "Great Lakes region, in three voices",
@@ -141,6 +143,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     signIn: "Se connecter",
     account: "Compte",
     bookmarks: "Favoris",
+    logout: "Se déconnecter",
     menu: "☰ Menu",
     closeMenu: "✕ Fermer",
     tagline: "La région des Grands Lacs, en trois voix",
@@ -206,6 +209,7 @@ export const translations: Record<"en" | "fr" | "rn", Record<LangKey, string>> =
     signIn: "Injira",
     account: "Konti",
     bookmarks: "Ivyabitswe",
+    logout: "Sohoka",
     menu: "☰ Menyu",
     closeMenu: "✕ Funga",
     tagline: "Akarere k'ibiyaga bigari, mu ndimi zitatu",

@@ -1,8 +1,10 @@
 "use client";
 export const dynamic = "force-dynamic";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 import { useAuthUser } from "@/lib/hooks/useAuthUser";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { STAFF_ROLES, getVisibleNavItems } from "@/lib/permissions";
@@ -11,6 +13,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const { profile, loading, isSignedIn, logout } = useAuthUser();
   const { t } = useLanguage();
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (loading) {
     return (
@@ -43,35 +46,76 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
+  const navLinks = getVisibleNavItems(profile.role).map((item) => {
+    const active = pathname?.startsWith(item.href);
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() => setSidebarOpen(false)}
+        className={`rounded px-3 py-2 text-sm font-medium transition-colors ${
+          active
+            ? "bg-adminOrange text-adminNavy font-semibold"
+            : "text-white/70 hover:bg-adminNavyLight hover:text-white"
+        }`}
+      >
+        {t(item.key)}
+      </Link>
+    );
+  });
+
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <aside className="w-56 shrink-0 bg-adminNavy p-4">
-        <div className="mb-6 px-2">
-          <div className="font-display text-lg font-semibold text-white">
-            Burundi Today <span className="text-adminOrange">•</span>
+      {/* Mobile top bar — hidden on md+, where the sidebar is always visible */}
+      <div className="fixed inset-x-0 top-0 z-30 flex items-center justify-between bg-adminNavy px-4 py-3 md:hidden">
+        <div className="font-display text-base font-semibold text-white">
+          Burundi Today <span className="text-adminOrange">•</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open menu"
+          className="rounded p-1.5 text-white hover:bg-adminNavyLight"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
+
+      {/* Backdrop, mobile only, shown while the sidebar drawer is open */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 shrink-0 overflow-y-auto bg-adminNavy p-4 transition-transform duration-200 ease-in-out md:static md:z-auto md:w-56 md:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="mb-6 flex items-start justify-between px-2">
+          <div>
+            <div className="font-display text-lg font-semibold text-white">
+              Burundi Today <span className="text-adminOrange">•</span>
+            </div>
+            <div className="text-xs text-white/50">{t("adminDashboard")}</div>
           </div>
-          <div className="text-xs text-white/50">{t("adminDashboard")}</div>
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close menu"
+            className="rounded p-1 text-white/70 hover:bg-adminNavyLight hover:text-white md:hidden"
+          >
+            <X size={20} />
+          </button>
         </div>
         <nav className="flex flex-col gap-1">
           {/* Admin sees every item here automatically (getVisibleNavItems
               grants Admin all access); other roles only see the pages
               their role is permitted to use, per lib/permissions.ts. */}
-          {getVisibleNavItems(profile.role).map((item) => {
-            const active = pathname?.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded px-3 py-2 text-sm font-medium transition-colors ${
-                  active
-                    ? "bg-adminOrange text-adminNavy font-semibold"
-                    : "text-white/70 hover:bg-adminNavyLight hover:text-white"
-                }`}
-              >
-                {t(item.key)}
-              </Link>
-            );
-          })}
+          {navLinks}
         </nav>
         <div className="mt-8 border-t border-white/10 px-2 pt-4 text-xs text-white/50">
           {t("adminSignedInAs")}
@@ -85,7 +129,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
         </div>
       </aside>
-      <main className="min-w-0 flex-1 p-8">{children}</main>
+
+      <main className="min-w-0 flex-1 overflow-x-hidden p-4 pt-20 sm:p-6 sm:pt-20 md:p-8 md:pt-8">{children}</main>
     </div>
   );
 }
